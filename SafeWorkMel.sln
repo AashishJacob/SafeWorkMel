@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeWorkMel", "SafeWorkMel\SafeWorkMel.csproj", "{2AF1216D-D604-4B56-BCEB-F259BFD42FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeWorkMel.Tests", "SafeWorkMel.Tests\SafeWorkMel.Tests.csproj", "{459D0728-C1F4-4BDC-8E39-76AB04C5CBF3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AF1216D-D604-4B56-BCEB-F259BFD42FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AF1216D-D604-4B56-BCEB-F259BFD42FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AF1216D-D604-4B56-BCEB-F259BFD42FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AF1216D-D604-4B56-BCEB-F259BFD42FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459D0728-C1F4-4BDC-8E39-76AB04C5CBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459D0728-C1F4-4BDC-8E39-76AB04C5CBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459D0728-C1F4-4BDC-8E39-76AB04C5CBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459D0728-C1F4-4BDC-8E39-76AB04C5CBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {84F97830-7BF7-4A2E-A7AF-34CFD5FA1CAD}
+	EndGlobalSection
+EndGlobal

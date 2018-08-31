@@ -1,0 +1,207 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--https://code.jquery.com/jquery-3.3.1.js
+
+https://code.jquery.com/jquery-3.3.1.min.js -->
+    
+    
+    <title>Near Restaurant</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400"><!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.css">
+    <!-- Main CSS -->
+	<!-- google map -->
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCHiPcn5TOQcCIGX8M6S68YBMKiLZP5emk&libraries=places"></script> <!--AIzaSyCHiPcn5TOQcCIGX8M6S68YBMKiLZP5emk-->
+              <!-- AIzaSyBREuFDLAYSrxjj69koGsHLX_VejDMKWuE -->
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+    <!-- script src="js/templatemo-script.js"></script -->
+<script>
+var map;
+var myCenter=new google.maps.LatLng(-37.8764368,145.0396434);
+var location1;
+var location2;
+var location0;
+var infowindow;  
+var geocoder;   
+    
+function initialize() {
+  geocoder = new google.maps.Geocoder();     
+  var mapProp = {
+    center: myCenter,
+    zoom:15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("googleMap"),mapProp); //显示多个map,则添加多个map对象
+  
+   var autocomplete = new google.maps.places.Autocomplete(document.getElementById('localtion'));
+    google.maps.event.addListener(autocomplete, 'place_changed', function(){
+        var place = autocomplete.getPlace();
+        var location = place.formatted_address;
+        location1 += place.geometry.location.A;
+        location2 += place.geometry.location.F;
+        location0 = "(" + location1 + ',' + location2 + ")";
+    });
+  //查询附近的餐馆
+  var request =  {
+	  location: myCenter,
+	  radius:1000, // meter
+	  types: ['restaurant']
+  };
+
+  //marker
+  var marker=new google.maps.Marker({
+	position: location0,
+	animation:google.maps.Animation.BOUNCE, //可动标签
+  });
+
+  marker.setMap(map);
+
+  //window
+   infowindow = new google.maps.InfoWindow();
+
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
+
+} // initial end
+
+
+function callback(results, status) {
+	if (status == google.maps.places.PlacesServiceStatus.OK) {
+		for (var i = 0; i < results.length; i++) {
+			createMarker(results[i]);
+		}
+	}
+}
+
+function createMarker(place) {
+	var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+     
+	 google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+      });
+
+    /**function activatePlaceSearch(){
+        var input = document.getElementById('localtion');
+        var autocomplete = new google.maps.places.Autocpmplete(input);
+    }*/
+}
+    
+function codeAddress(){
+	var address = document.getElementById('localtion').value;
+    var center;
+	geocoder.geocode( { 'address': address}, function(results, status){
+		if (status == 'OK') {
+            center = results[0].geometry.location;
+			map.setCenter(results[0].geometry.location);
+			var marker = new google.maps.Marker({
+				map: map,
+				position: results[0].geometry.location,
+				animation:google.maps.Animation.BOUNCE //可动标签
+			});
+            
+              //查询附近的餐馆
+            var request =  {
+	           location: center,
+	           radius:1000, // meter
+	           types: ['restaurant']
+            };
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, callback);
+            
+		}else{
+				alert('Geocode was not successful for the following reason: ' + status);
+		}
+	});
+}
+
+
+// must be last executed.
+google.maps.event.addDomListener(window, 'load', initialize);
+//自动填充
+
+//自动填充start
+$(
+    function() {
+    var availableTags = [
+      "Carlton",
+      "Carlton South",
+      "Carlton North",
+      "East Melbourne",
+      "Kensington",
+      "North Melbourne",
+      "Royal Park",
+      "richmond",
+      "South Yarra",
+      "Clayton",
+      "Melbourne Central",
+      "CBD",
+      "South Bank",
+      "Southern Cross",
+      "Flaggstaff",
+      "Parliament",
+      "Flinders",
+      "Ormond",
+      "Chadstone",
+      "Yarravile",
+      "South Land"
+    ];
+    $( "#localtion" ).autocomplete({
+      source: availableTags
+    });
+  });
+
+
+</script>
+</head>
+
+<body>
+    <div class="container">
+	    <!-- Banner -->
+		<div class="row">
+            <div class="col-lg-12">
+                <header class="text-center tm-site-header">
+                    <div class="tm-site-logo"></div>
+                    <h1 style="font-size:20px;text-align:center">Nearby Restaurants</h1>
+                </header>
+            </div>
+        </div>
+			<div class="row tm-section-mt">
+               <div class="col-lg-12 mb-5">
+					<!--form action="#contact" method="post" class="tm-contact-form"-->
+                    <div class="row">
+                        <div class="form-group col-lg-4" style="padding-top:20px">
+                            <input type="text" id="localtion" name="localtion" class="form-control" placeholder="Search Location..." required/>
+                        </div>
+						<div class="form-group col-lg-4" style="padding-right:500px">
+                            <label id="lblResult"></label>
+                            <button type="submit" class="btn tm-btn-send  pull-right" onclick="codeAddress()">Search It</button>
+                        </div>
+                    </div>
+					<!--/form-->
+				</div>
+                <div id="googleMap" style="width:80%;height:500px;">
+                </div>
+
+        <hr>
+</div>
+    </div>
+
+
+</body>
+</html>

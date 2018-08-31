@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!--https://code.jquery.com/jquery-3.3.1.js
+
+    https://code.jquery.com/jquery-3.3.1.min.js -->
+
+
+    <title>Near Restaurant</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400"><!-- Google web font "Open Sans" -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <!-- Main CSS -->
+    <!--<link rel="stylesheet" href="css/templatemo-style.css"> -->
+    <!-- google map -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBREuFDLAYSrxjj69koGsHLX_VejDMKWuE&libraries=places"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <!-- script src="js/templatemo-script.js"></script -->
+    <script>
+var map;
+var myCenter=new google.maps.LatLng(-37.8764368,145.0396434);
+var infowindow;
+
+function initialize() {
+  var mapProp = {
+    center: myCenter,
+    zoom:15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("googleMap"),mapProp); //ÏÔÊ¾¶à¸ömap,ÔòÌí¼Ó¶à¸ömap¶ÔÏó
+
+  //²éÑ¯¸½½üµÄ²Í¹Ý
+  var request =  {
+	  location: myCenter,
+	  radius:1000, // meter
+	  types: ['restaurant']
+  };
+
+  //marker
+  var marker=new google.maps.Marker({
+	position: myCenter,
+	animation:google.maps.Animation.BOUNCE, //¿É¶¯±êÇ©
+  });
+
+  marker.setMap(map);
+
+  //window
+   infowindow = new google.maps.InfoWindow();
+
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch(request, callback);
+
+} // initial end
+
+function callback(results, status) {
+	if (status == google.maps.places.PlacesServiceStatus.OK) {
+		for (var i = 0; i < results.length; i++) {
+			createMarker(results[i]);
+		}
+	}
+}
+
+function createMarker(place) {
+	var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+	 google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+      });
+
+    /**function activatePlaceSearch(){
+        var input = document.getElementById('localtion');
+        var autocomplete = new google.maps.places.Autocpmplete(input);
+    }*/
+}
+
+
+// must be last executed.
+google.maps.event.addDomListener(window, 'load', initialize);
+//×Ô¶¯Ìî³ä
+
+//×Ô¶¯Ìî³ästart
+$(
+    function() {
+    var availableTags = [
+      "Carlton",
+      "Carlton South",
+      "Carlton North",
+      "East Melbourne",
+      "Kensington",
+      "North Melbourne",
+      "Royal Park",
+      "richmond",
+      "South Yarra",
+      "Clayton",
+      "Melbourne Central",
+      "CBD",
+      "South Bank",
+      "Southern Cross",
+      "Flaggstaff",
+      "Parliament",
+      "Flinders",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#localtion" ).autocomplete({
+      source: availableTags
+    });
+  });
+
+
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Banner -->
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="text-center tm-site-header">
+                    <div class="tm-site-logo"></div>
+                    <h1 class="pl-4 tm-site-title">Follow me</h1>
+                </header>
+            </div>
+        </div>
+        <div class="row tm-section-mt">
+            <div class="col-lg-12 mb-5">
+                <form action="#contact" method="post" class="tm-contact-form">
+                    <div class="row">
+                        <div class="form-group col-xl-4">
+                            <input type="text" id="localtion" name="location" class="form-control" placeholder="Search Location..." required />
+                        </div>
+                        <!--<div class="form-group col-xl-4">
+                            <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="email" required/>
+                        </div>-->
+                        <div class="form-group col-xl-4">
+                            <button type="submit" class="btn tm-btn-send  pull-right">Search It</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="googleMap" style="width:80%;height:500px;">
+            </div>
+
+            <hr>
+</body>
+</html>

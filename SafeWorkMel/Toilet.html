@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBREuFDLAYSrxjj69koGsHLX_VejDMKWuE&callback=initialize" type="text/javascript"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+    <style type="text/css">
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div style="text-align:center"><a href="Home/Index"><img src="../../logo.PNG" style="height:60px;width:250px;text-align:center"></a></div>
+    <h1 style="font-size:20px;text-align:center">Nearby Public toliets location</h1>
+    <div id="map"></div>
+    <script type="text/javascript">
+        var map;
+        function initialize() {
+            var myLatlng = new google.maps.LatLng(-37.8136, 144.9631);
+            var mapOptions = {
+                zoom: 15,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+            var centerMarker = new google.maps.Marker(
+                {
+                    position: myLatlng,
+                    title: "hello,world!",
+                    map: map
+                }
+            );
+
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(myLatlng);
+            var latLng;
+            var markers = [];
+            d3.csv("http://localhost:8000/Documents/allThings/allThings/toilet/Public_toilets.csv", function (error, data) {
+                for (var i = 0; i < data.length; i++) {
+                    var no = data[i].no;
+                    var latitude = data[i].lat;
+                    var longitude = data[i].lon;
+                    var name = data[i].name;
+                    bounds.extend(new google.maps.LatLng(latitude, longitude));
+                    var marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(latitude, longitude),
+                        map: map,
+                        title: no
+                    });
+                    addInfoWindow(marker, name);
+                    markers.push(marker);
+                }
+            });
+            map.fitBounds(bounds);
+        }
+
+        function addInfoWindow(marker, info) {
+            var infowindow = new google.maps.InfoWindow({
+                content: 'Toliet information is: ' + info
+            });
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+    </script>
+</body>
+</html>
