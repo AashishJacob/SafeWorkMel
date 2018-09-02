@@ -253,7 +253,6 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="download %281%29.png" />
     <Content Include="download.png" />
     <Content Include="Drink.html" />
@@ -304,12 +303,16 @@
     <Content Include="Scripts\d3\CHANGES.md" />
     <Content Include="Scripts\d3\API.md" />
     <Content Include="WhatsApp Image 2018-08-30 at 11.15.52 PM.jpeg" />
-    <Content Include="WhatsApp Image 2018-08-30 at 7.42.34 PM.jpeg" />
+    <Content Include="melborne.jpeg" />
     <Content Include="WhatsApp Image 2018-08-30 at 7.42.35 PM %281%29.jpeg" />
     <Content Include="WhatsApp Image 2018-08-30 at 7.42.35 PM.jpeg" />
     <Content Include="WhatsApp Image 2018-08-30 at 7.46.03 PM.jpeg" />
     <Content Include="WhatsApp Image 2018-08-30 at 7.46.20 PM.jpeg" />
+    <None Include="Properties\PublishProfiles\SafeWorkMel - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SafeWorkMel - FTP1.pubxml" />
     <None Include="Properties\PublishProfiles\SafeWorkMel - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\SafeWorkMel - Web Deploy1.pubxml" />
+    <None Include="Properties\PublishProfiles\SafeWorkMel - Web Deploy2.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
